@@ -67,7 +67,7 @@ To get the project running locally, follow these steps:
 ![Add Task](screenshots/add_task.png)
 
 ### Responsive Design
-![Responsive Design](screenshots/responsive_design.png)
+![Login Page](screenshots/login.png)
 
 ## Future Improvements
 
