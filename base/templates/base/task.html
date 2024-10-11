@@ -3,10 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task Details</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e1f5fe; /* Light blue background */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #0288d1; /* Deep blue for the heading */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        a {
+            color: #0288d1;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #b3e5fc; /* Soft light blue button */
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        a:hover {
+            background-color: #4fc3f7; /* Darker blue on hover */
+        }
+
+        .task-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #616161; /* Soft grey for text */
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <a href="{% url 'tasks' %}">Go back</a>
-    <h1>Task: {{ task }}</h1>
+    <a href="{% url 'tasks' %}">← Go back</a>
+    
+    <div class="task-container">
+        <h1>Task: {{ task }}</h1>
+        <p>Description or additional task details can go here.</p>
+    </div>
 </body>
 </html>

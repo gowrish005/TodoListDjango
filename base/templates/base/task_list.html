@@ -1,50 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e1f5fe; /* Light blue background */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #0288d1; /* Deep blue for the heading */
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #0288d1;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #b3e5fc; /* Soft light blue button */
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #4fc3f7; /* Slightly darker blue on hover */
+        }
+
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #0288d1;
+        }
+
+        th {
+            background-color: #81d4fa; /* Light blue table header */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f1f8e9; /* Light green for alternating rows */
+        }
+
+        button {
+            background-color: #ff8a65; /* Soft orange logout button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff7043; /* Darker orange on hover */
+        }
+
+        .task-actions a {
+            margin: 0 5px;
+        }
+
+        .no-items {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #757575; /* Soft grey for no items text */
+        }
+
+        .logout-form {
+            margin-left: auto;
+        }
+    </style>
 </head>
 <body>
     {% if request.user.is_authenticated %}
-        <p>{{request.user}}</p>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
+        <div class="header">
+            <div class="user-info">
+                <!-- Display a random profile picture based on the user's username -->
+                <img src="https://robohash.org/{{ request.user }}.png?size=40x40" alt="Profile Picture">
+                <p>Hello, <strong>{{ request.user }}</strong>!</p>
+            </div>
+            <form class="logout-form" action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
     {% else %}
-        <a href="{% url 'login' %}">Login</a>
+        <div>
+            <a href="{% url 'login' %}">Login</a>
+        </div>
     {% endif %}
+    
     <hr>
+
     <h1>My Todo List</h1>
-    <a href="{% url 'task-create' %}">Add Task</a>
-    <table>
-        <tr>
-            <th>|</th>
-            <th>
-                Item
-            </th>
-            <th>|</th>
-            <th> </th>
-            <th>|</th>
-            <th> </th>
-            <th>|</th>
-            <th> </th>
-            <th>|</th>
-        </tr>
-        {% for task in tasks %}
-        <tr>
-            <td>|</td>
-            <td>{{task.title}}</td>
-            <td>|</td>
-            <td><a href="{% url 'task' task.id %}">View</a></td>
-            <td>|</td>
-            <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
-            <td>|</td>
-            <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
-            <td>|</td>
-        </tr>
-        {% empty %}
-            <h3>No items</h3>
-        {% endfor %}
-    </table>
+    <a href="{% url 'task-create' %}">+ Add Task</a>
+
+    {% if tasks %}
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Task</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ task.title }}</td>
+                    <td class="task-actions">
+                        <a href="{% url 'task' task.id %}">View</a> |
+                        <a href="{% url 'task-update' task.id %}">Edit</a> |
+                        <a href="{% url 'task-delete' task.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-items">No tasks found. Start by adding a new task!</p>
+    {% endif %}
 </body>
 </html>

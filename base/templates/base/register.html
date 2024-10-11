@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <style>
         /* General Reset */
         * {
@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #fce4ec; /* Soft pink background */
+            background-color: #f3e5f5; /* Light lavender background for a cute look */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,7 +23,7 @@
 
         h1 {
             font-size: 2rem;
-            color: #ff4081; /* Cute pink color */
+            color: #ba68c8; /* Lavender theme */
             margin-bottom: 20px;
             text-align: center;
         }
@@ -38,7 +38,7 @@
         }
 
         input[type="submit"] {
-            background-color: #ff80ab;
+            background-color: #ce93d8;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -52,7 +52,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #ff4081; /* Slightly darker pink on hover */
+            background-color: #ba68c8; /* Darker lavender on hover */
         }
 
         p {
@@ -62,7 +62,7 @@
         }
 
         a {
-            color: #ff4081;
+            color: #ba68c8;
             text-decoration: none;
         }
 
@@ -73,11 +73,11 @@
 </head>
 <body>
     <form method="POST">
-        <h1>Login</h1>
+        <h1>Register</h1>
         {% csrf_token %}
         {{form.as_p}}
-        <input type="submit" value="Login">
-        <p>Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+        <input type="submit" value="Register">
+        <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
     </form>
 </body>
 </html>
