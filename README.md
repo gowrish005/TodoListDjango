@@ -58,22 +58,6 @@ To get the project running locally, follow these steps:
 3. **Manage Tasks**: You can view, edit, or delete tasks from the list.
 4. **Logout**: Click the "Logout" button to securely sign out.
 
-## Screenshots
-
-### Task List View
-![Task List View](https://github.com/gowrish005/TodoListDjango/commit/ab38bd7890ce12728c11a493ad6e3bd2a03cbf6f#diff-50afec1b498be122ab10b9e1d46f111538ee81c4c3f6552a9891a6d9f414d4cd)](https://github.com/gowrish005/TodoListDjango/blob/main/Screenshots/add_task.png)
-
-### Add Task
-![Add Task](screenshots/add_task.png)
-
-### Responsive Design
-![Login Page](screenshots/login.png)
-
-## Future Improvements
-
-- Add filtering and sorting of tasks.
-- Implement a task deadline feature.
-- Add categories and priorities for better task management.
 
 ## License
 
