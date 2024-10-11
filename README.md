@@ -61,7 +61,7 @@ To get the project running locally, follow these steps:
 ## Screenshots
 
 ### Task List View
-![Task List View](screenshots/task_list_view.png)
+![Task List View]([screenshots/task_list_view.png](https://github.com/gowrish005/TodoListDjango/commit/ab38bd7890ce12728c11a493ad6e3bd2a03cbf6f#diff-50afec1b498be122ab10b9e1d46f111538ee81c4c3f6552a9891a6d9f414d4cd))
 
 ### Add Task
 ![Add Task](screenshots/add_task.png)
