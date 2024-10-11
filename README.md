@@ -65,4 +65,4 @@ This project is licensed under the MIT License. Feel free to modify and use it a
 
 ---
 
-**Note**: Make sure to replace the repository URL and your GitHub username accordingly in the README file.
+**Note**: I Have used AI to genrate this ReadMe File and the **Front-End Styling was done using AI, as i was only intrested in the Back-End**
