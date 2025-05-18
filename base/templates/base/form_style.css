@@ -1,0 +1,35 @@
+/* Custom styling for Django form elements with Tailwind-like classes */
+form p {
+    @apply mb-4;
+}
+
+form p label {
+    @apply block text-gray-300 mb-2 text-sm font-medium;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form textarea,
+form select {
+    @apply w-full bg-dark-100 text-gray-200 border border-dark-100 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+}
+
+/* Error messages */
+form .errorlist {
+    @apply text-danger text-sm mt-1 ml-1 list-none;
+}
+
+/* Help text */
+form .helptext {
+    @apply text-gray-400 text-xs mt-1 block;
+}
+
+/* Checkbox styling */
+form input[type="checkbox"] {
+    @apply mr-2 text-primary border-dark-100 rounded focus:ring-primary;
+}
+
+form p:has(input[type="checkbox"]) label {
+    @apply inline-flex items-center cursor-pointer;
+}

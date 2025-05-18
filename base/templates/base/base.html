@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Todo List{% endblock %}</title>
+    <!-- Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind with a dark theme -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#bb86fc',
+                        secondary: '#03dac6',
+                        danger: '#cf6679',
+                        dark: {
+                            100: '#2d2d2d',
+                            200: '#1e1e1e',
+                            300: '#121212'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Particles.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <!-- Custom particles configuration -->
+    <script src="{% url 'serve_static' 'particles.js' %}"></script>
+    <style>
+        /* Essential styles that can't be handled with Tailwind */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Form styling */
+        form p {
+            margin-bottom: 1rem;
+        }
+
+        form p label {
+            display: block;
+            color: #e0e0e0;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        form input[type="text"],
+        form input[type="password"],
+        form input[type="email"],
+        form textarea,
+        form select {
+            width: 100%;
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            border: 1px solid #2d2d2d;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="password"]:focus,
+        form input[type="email"]:focus,
+        form textarea:focus,
+        form select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.5);
+            border-color: transparent;
+        }
+
+        form .errorlist {
+            color: #cf6679;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            margin-left: 0.25rem;
+            list-style-type: none;
+        }
+
+        form .helptext {
+            color: #a0a0a0;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        form input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        form p:has(input[type="checkbox"]) label {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        /* Animation for fade-in effect */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-dark-300 text-gray-200 min-h-screen flex flex-col items-center py-8 px-4 relative overflow-x-hidden">
+    <!-- Particles background -->
+    <div id="particles-js"></div>
+    
+    <div class="w-full max-w-4xl mx-auto z-10 fade-in">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

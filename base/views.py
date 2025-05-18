@@ -3,6 +3,9 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView , UpdateView,  DeleteView, FormView
 from django.urls import reverse_lazy
+from django.http import HttpResponse, Http404
+import os
+from pathlib import Path
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
@@ -37,6 +40,26 @@ class RegisterPage(FormView):
 
 
 # Create your views here.
+def serve_static_file(request, filename):
+    # Path to templates/base directory
+    base_dir = Path(__file__).resolve().parent
+    file_path = os.path.join(base_dir, 'templates', 'base', filename)
+    
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as f:
+            file_content = f.read()
+        
+        # Set content type based on file extension
+        content_type = 'text/plain'
+        if filename.endswith('.js'):
+            content_type = 'application/javascript'
+        elif filename.endswith('.css'):
+            content_type = 'text/css'
+        
+        return HttpResponse(file_content, content_type=content_type)
+    else:
+        raise Http404("File not found")
+
 class TaskList(LoginRequiredMixin,ListView):
     model = Task
     context_object_name = "tasks"

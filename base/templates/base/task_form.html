@@ -1,88 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Form</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+{% extends 'base/base.html' %}
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e1f5fe; /* Light blue background */
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-        }
+{% block title %}Task Form{% endblock %}
 
-        h3 {
-            font-size: 2rem;
-            color: #0288d1; /* Deep blue heading */
-            margin-bottom: 20px;
-        }
-
-        a {
-            color: #0288d1;
-            text-decoration: none;
-            padding: 10px 20px;
-            background-color: #b3e5fc; /* Light blue button */
-            border-radius: 10px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            margin-bottom: 20px;
-        }
-
-        a:hover {
-            background-color: #4fc3f7; /* Darker blue on hover */
-        }
-
-        form {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-        }
-
-        input[type="submit"] {
-            background-color: #ff8a65; /* Soft orange submit button */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #ff7043; /* Darker orange on hover */
-        }
-
-        form p {
-            font-size: 1.1rem;
-            color: #616161;
-        }
-    </style>
-</head>
-<body>
-    <h3>Task Form</h3>
+{% block content %}
+    <h3 class="text-3xl text-primary font-bold mb-6">Task Form</h3>
     
-    <a href="{% url 'tasks' %}">← Go back</a>
+    <a href="{% url 'tasks' %}" class="inline-block mb-6 bg-opacity-10 hover:bg-opacity-20 bg-secondary text-secondary rounded-lg font-bold px-5 py-3 transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg">
+        <span class="mr-2">←</span> Go back
+    </a>
     
-    <form method="post" action="">
+    <form method="post" action="" class="bg-dark-200 p-8 rounded-xl shadow-2xl border border-dark-100 w-full max-w-2xl mb-8">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
+        <div class="space-y-4">
+            {{ form.as_p }}
+        </div>
+        <input type="submit" value="Submit" class="w-full mt-6 bg-primary hover:bg-primary/80 text-gray-900 font-bold py-3 rounded-lg cursor-pointer transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg">
     </form>
-</body>
-</html>
+{% endblock %}

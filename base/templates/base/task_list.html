@@ -1,167 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head> 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+{% extends 'base/base.html' %}
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e1f5fe; /* Light blue background */
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+{% block title %}Todo List{% endblock %}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 600px;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-info img {
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: #0288d1; /* Deep blue for the heading */
-            margin-bottom: 20px;
-        }
-
-        a {
-            color: #0288d1;
-            text-decoration: none;
-            padding: 10px 20px;
-            background-color: #b3e5fc; /* Soft light blue button */
-            border-radius: 10px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        a:hover {
-            background-color: #4fc3f7; /* Slightly darker blue on hover */
-        }
-
-        table {
-            width: 100%;
-            max-width: 600px;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #0288d1;
-        }
-
-        th {
-            background-color: #81d4fa; /* Light blue table header */
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f1f8e9; /* Light green for alternating rows */
-        }
-
-        button {
-            background-color: #ff8a65; /* Soft orange logout button */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #ff7043; /* Darker orange on hover */
-        }
-
-        .task-actions a {
-            margin: 0 5px;
-        }
-
-        .no-items {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #757575; /* Soft grey for no items text */
-        }
-
-        .logout-form {
-            margin-left: auto;
-        }
-    </style>
-</head>
-<body>
+{% block content %}
     {% if request.user.is_authenticated %}
-        <div class="header">
-            <div class="user-info">
+        <div class="bg-dark-200 p-6 rounded-xl shadow-lg border border-dark-100 w-full mb-8 flex justify-between items-center">
+            <div class="flex items-center">
                 <!-- Display a random profile picture based on the user's username -->
-                <img src="https://robohash.org/{{ request.user }}.png?size=40x40" alt="Profile Picture">
-                <p>Hello, <strong>{{ request.user }}</strong>!</p>
+                <img src="https://robohash.org/{{ request.user }}.png?size=40x40" alt="Profile Picture" class="rounded-full w-10 h-10 mr-3">
+                <p class="text-gray-200">Hello, <span class="text-primary font-bold">{{ request.user }}</span>!</p>
             </div>
-            <form class="logout-form" action="{% url 'logout' %}" method="post">
+            <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
-                <button type="submit">Logout</button>
+                <button type="submit" class="bg-danger bg-opacity-20 hover:bg-opacity-30 text-danger font-bold px-4 py-2 rounded-lg transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg">Logout</button>
             </form>
         </div>
     {% else %}
-        <div>
-            <a href="{% url 'login' %}">Login</a>
+        <div class="w-full flex justify-end mb-6">
+            <a href="{% url 'login' %}" class="bg-primary bg-opacity-20 hover:bg-opacity-30 text-primary font-bold px-6 py-3 rounded-lg transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg">Login</a>
         </div>
     {% endif %}
-    
-    <hr>
 
-    <h1>My Todo List</h1>
-    <a href="{% url 'task-create' %}">+ Add Task</a>
+    <h1 class="text-4xl text-primary font-bold mb-6">My Todo List</h1>
+    
+    <div class="flex justify-between items-center w-full mb-8">
+        <a href="{% url 'task-create' %}" class="bg-secondary bg-opacity-20 hover:bg-opacity-30 text-secondary font-bold px-5 py-3 rounded-lg transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg">
+            <span class="mr-2">+</span> Add Task
+        </a>
+    </div>
 
     {% if tasks %}
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Task</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for task in tasks %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ task.title }}</td>
-                    <td class="task-actions">
-                        <a href="{% url 'task' task.id %}">View</a> |
-                        <a href="{% url 'task-update' task.id %}">Edit</a> |
-                        <a href="{% url 'task-delete' task.id %}">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="w-full bg-dark-200 rounded-xl shadow-lg border border-dark-100 overflow-hidden">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-dark-100">
+                        <th class="py-4 px-6 text-left">#</th>
+                        <th class="py-4 px-6 text-left">Task</th>
+                        <th class="py-4 px-6 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr class="border-t border-dark-100 hover:bg-dark-100 transition duration-200">
+                        <td class="py-4 px-6 text-gray-300">{{ forloop.counter }}</td>
+                        <td class="py-4 px-6 text-gray-200">{{ task.title }}</td>
+                        <td class="py-4 px-6 text-right space-x-2">
+                            <a href="{% url 'task' task.id %}" class="inline-block bg-primary bg-opacity-10 hover:bg-opacity-20 text-primary px-3 py-1 rounded-lg transition-all duration-200">View</a>
+                            <a href="{% url 'task-update' task.id %}" class="inline-block bg-secondary bg-opacity-10 hover:bg-opacity-20 text-secondary px-3 py-1 rounded-lg transition-all duration-200">Edit</a>
+                            <a href="{% url 'task-delete' task.id %}" class="inline-block bg-danger bg-opacity-10 hover:bg-opacity-20 text-danger px-3 py-1 rounded-lg transition-all duration-200">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
-        <p class="no-items">No tasks found. Start by adding a new task!</p>
+        <div class="bg-dark-200 p-10 rounded-xl shadow-lg border border-dark-100 w-full text-center">
+            <p class="text-xl text-gray-400">No tasks found. Start by adding a new task!</p>
+        </div>
     {% endif %}
+{% endblock %}
 </body>
 </html>
